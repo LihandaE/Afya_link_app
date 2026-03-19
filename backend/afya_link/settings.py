@@ -46,11 +46,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'cloudinary',
+    'cloudinary_storage',
 
     #Local apps
     'accounts',
     'hospitals',
-    'staff',
     'patients',
     'visits',
     'laboratory',
