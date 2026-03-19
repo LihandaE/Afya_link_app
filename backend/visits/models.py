@@ -67,3 +67,23 @@ class Vitals(models.Model):
     def __str__(self):
         return f"Vitals for{self.visit.patient.full_name}"
 
+#Medical Records model
+
+class MedicalRecord(models.Model):
+    visit=models.ForeignKey(
+        Visit,
+        on_delete=models.CASCADE
+    )
+
+    doctor=models.ForeignKey(
+        'accounts.User',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    symptoms=models.TextField()
+    diagnosis=models.TextField(blank=True, null=True)
+    notes=models.TextField(blank=True, null=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Record for {self.visit.patient.full_name}"
