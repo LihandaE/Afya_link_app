@@ -18,7 +18,7 @@ class User(AbstractUser):
     phone=models.CharField(max_length=20)
     license_number = models.CharField(max_length=100, blank=True, null=True)
 
-    profile_image =models.CloudinaryField(upload_to='staff_images/', blank=True, null=True)
+    profile_image =models.CloudinaryField(blank=True, null=True)
 
     hospital = models.ForeignKey(
         'hospitals.Hospital',
