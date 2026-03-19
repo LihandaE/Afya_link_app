@@ -1,3 +1,47 @@
 from django.db import models
 
 # Create your models here.
+from django.db import models
+
+
+class Visit(models.Model):
+
+    STATUS_CHOICES = (
+
+        ('registered', 'Registered'),
+        ('vitals_done', 'Vitals Done'),
+        ('doctor_consult', 'Doctor Consultation'),
+        ('lab_requested', 'Lab Requested'),
+        ('radiology_requested', 'Radiology Requested'),
+        ('diagnosed', 'Diagnosed'),
+        ('pharmacy', 'Pharmacy'),
+        ('completed', 'Completed'),
+
+    )
+
+    patient = models.ForeignKey(
+        'patients.Patient',
+        on_delete=models.CASCADE
+    )
+
+    hospital = models.ForeignKey(
+        'hospitals.Hospital',
+        on_delete=models.CASCADE
+    )
+
+    receptionist = models.ForeignKey(
+        'accounts.User',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+
+    status = models.CharField(
+        max_length=50,
+        choices=STATUS_CHOICES,
+        default='registered'
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Visit {self.id} - {self.patient.full_name}"
