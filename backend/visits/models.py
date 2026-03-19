@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db import models
 
-
+# visit model
 class Visit(models.Model):
 
     STATUS_CHOICES = (
@@ -45,3 +45,25 @@ class Visit(models.Model):
 
     def __str__(self):
         return f"Visit {self.id} - {self.patient.full_name}"
+    
+#vitals model for the nurse
+class Vitals(models.Model):
+    visit=models.OneToOneField(
+        'Visit',
+        on_delete=models.CASCADE
+
+    )
+    nurse=models.ForeignKey(
+        'accounts.User',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    temperature=models.FloatField()
+    blood_pressure=models.CharField(max_length=20)
+    weight=models.FloatField()
+    heart_rate=models.IntegerField()
+    created_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Vitals for{self.visit.patient.full_name}"
+
