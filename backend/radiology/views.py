@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from accounts.permissions import IsRadiologist
+from accounts.permissions import *
 from rest_framework.decorators import*
 from rest_framework.response import Response
 from .serializers import RadiologySerializer
@@ -12,4 +12,18 @@ def upload_radiology(request):
     if serializer.is_valid():
         serializer.save(radiologist=request.user)
         return Response(serializer.data)
+    return Response(serializer.errors)
+
+@api_view(["POST"])
+@permission_classes([IsDoctor])
+def request_scan(request):
+
+    serializer = RadiologySerializer(data=request.data)
+
+    if serializer.is_valid():
+
+        serializer.save(doctor=request.user)
+
+        return Response(serializer.data)
+
     return Response(serializer.errors)
