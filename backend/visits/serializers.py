@@ -1,4 +1,4 @@
-from .models import Vitals, MedicalRecord
+from .models import*
 from rest_framework import serializers
 
 
@@ -12,3 +12,7 @@ class MedicalRecordSerializer(serializers.ModelSerializer):
         model=MedicalRecord
         fields='__all__'
         
+class VisitSerializer(serializers.ModelsSerializer):
+    class Meta:
+        model=Visit
+        fields='__all__'
