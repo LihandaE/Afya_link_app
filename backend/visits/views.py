@@ -24,6 +24,9 @@ def doctor_consultation(request):
 
     if serializer.is_valid():
         serializer.save(doctor=request.user)
+        visit=serializer.validated_data['visit']
+        visit.status='doctor_consult'
+        visit.save()
         return Response(serializer.data)
     return Response(serializer.errors)
 
