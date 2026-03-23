@@ -12,7 +12,7 @@ class MedicalRecordSerializer(serializers.ModelSerializer):
         model=MedicalRecord
         fields='__all__'
         
-class VisitSerializer(serializers.ModelsSerializer):
+class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model=Visit
         fields='__all__'
