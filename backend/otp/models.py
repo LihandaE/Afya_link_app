@@ -1,24 +1,30 @@
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+
 class OTPVerification(models.Model):
-    PURPOSE_CHOICES=(
+
+    PURPOSE_CHOICES = (
         ('record_access', 'Record Access'),
-        ('login_verification', 'Login Verification'),
+    )
 
+    patient = models.ForeignKey(
+        'patients.Patient',
+        on_delete=models.CASCADE
     )
-    patient=models.ForeignKey(
-        'patients.Patient', on_delete=models.CASCADE
 
-    )
-    otp_code= models.CharField(max_length=7)
-    purpose=models.CharField(
-        max_length=60,
-        choices=PURPOSE_CHOICES
-    )
-    is_verified=models.BooleanField(default=False)
-    created_at=models.DateTimeField(auto_now_add=True)
+    otp_code = models.CharField(max_length=6)
+
+    purpose = models.CharField(max_length=50, choices=PURPOSE_CHOICES)
+
+    is_verified = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    expires_at = models.DateTimeField()
+
+    def is_expired(self):
+        return timezone.now() > self.expires_at
 
     def __str__(self):
         return f"OTP for {self.patient.full_name}"
-    
