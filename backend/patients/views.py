@@ -17,3 +17,11 @@ def register_patient(request):
         return Response(serializer.data)
     return Response(serializer.errors)
 
+@api_view(["GET"])
+def search_patient(request):
+    phone=request.GET.get('phone')
+    patient=Patient.objects.filter(phone=phone)
+    serializer=PatientSerializer(patient, many=True)
+    return Response(serializer.data)
+
+
