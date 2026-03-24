@@ -33,6 +33,8 @@ function AdminDashboard() {
         <option value="nurse">Nurse</option>
         <option value="lab_tech">Lab Tech</option>
         <option value="pharmacist">Pharmacist</option>
+        <option value="radiologist">Radiologist</option>
+        
       </select>
 
       <button onClick={addStaff}>
